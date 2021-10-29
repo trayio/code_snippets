@@ -1,0 +1,52 @@
+function onFormSubmit(e) {
+  
+  var responses = {};
+  // Replace the form ID var below with whatever your form is. You can get this from the URL like so:
+  var form = FormApp.openById('{{ FORM ID }}');
+  var formResponses = form.getResponses();
+  
+  if (e) {
+
+    var lt = formResponses.length - 1
+    var itemResponses = formResponses[lt].getItemResponses()
+    
+    itemResponses.forEach(function(el){
+      var item = el.getItem();
+      responses[item.getTitle()] = el.getResponse();
+
+      });
+    
+    // Hit "cmd + return" to see a console log of the object being sent to the webhook
+    Logger.log(responses);
+
+  } else {
+    // This is here just to help test the objects already sent to form for QA.
+    // You can remove this or do whatever error handling you want to do when it's live.
+    var lt = formResponses.length - 1
+    var itemResponses = formResponses[lt].getItemResponses()
+
+    itemResponses.forEach(function(el){
+      var item = el.getItem();
+      responses[item.getTitle()] = el.getResponse();
+
+      });
+      
+    });
+    
+    // Hit "cmd + return" to see a console log of the object being sent to the webhook
+    Logger.log(responses);
+  }
+  
+  // Put your Tray webhook endpoint here. You get that from the workflow setting dialog (upper left corner under gear icon).
+  // ex: https://xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.trayapp.io
+  var url = "***Tray webhook url***";
+  
+  var options = {
+        "method": "post",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "payload": JSON.stringify(responses)
+    };
+    var response = UrlFetchApp.fetch(url, options); 
+}
