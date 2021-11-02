@@ -1,4 +1,4 @@
- {"body": {
+ "body": {
     "Short Text": "My Text",
     "Multiple Choice": "Engineer",
     "Long Answer Text": "This is my long answer",
@@ -27,4 +27,3 @@
     "Date": "2021-10-06",
     "Time": "12:00"
   }
-}
