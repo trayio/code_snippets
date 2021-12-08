@@ -31,7 +31,6 @@ function onFormSubmit(e) {
 
       });
       
-    });
     
     // Hit "cmd + return" to see a console log of the object being sent to the webhook
     Logger.log(responses);
